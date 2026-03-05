@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Code for Marketers</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #ffffff;
+    --text-main: #000000;
+    --text-body: #1a1a1a;
+    --accent: #559ab3;
+    --accent-dim: #47879d;
+    --border: #ebebeb;
+    --muted: #666666;
+    --font-body: 'Inter', Helvetica, Arial, sans-serif;
+    --font-display: Georgia, 'Times New Roman', serif;
+
+    --r-background-color: var(--bg);
+    --r-main-color: var(--text-body);
+    --r-heading-color: var(--text-main);
+    --r-link-color: var(--accent);
+    --r-link-color-hover: var(--accent-dim);
+    --r-selection-background-color: var(--accent);
+    --r-selection-color: #fff;
+  }
+
+  .reveal {
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.7;
+  }
+
+  .reveal h1, .reveal h2, .reveal h3 {
+    font-family: var(--font-display);
+    font-weight: normal;
+    letter-spacing: -0.02em;
+    color: var(--text-main);
+  }
+  .reveal h1 { font-size: 1.7em; line-height: 1.1; }
+  .reveal h2 { font-size: 1.2em; line-height: 1.25; margin-bottom: 0.4em; }
+  .reveal h3 {
+    font-family: var(--font-body);
+    font-size: 0.55em;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.5em;
+  }
+
+  .reveal li { margin-bottom: 0.35em; font-size: 0.7em; color: var(--text-body); }
+  .reveal strong { color: var(--text-main); font-weight: 600; }
+  .reveal code {
+    font-family: var(--font-body);
+    background: #fafafa;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.1em 0.4em;
+    font-size: 0.88em;
+    color: var(--text-main);
+  }
+  .reveal p { color: var(--text-body); font-size: 0.72em; }
+
+  .reveal .subtitle {
+    font-family: var(--font-body);
+    color: var(--text-body);
+    font-size: 0.85em;
+    font-weight: 400;
+    margin-top: -0.2em;
+  }
+  .reveal .small { font-size: 0.7em; color: var(--muted); }
+
+  .reveal .highlight {
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    padding: 0.4em 0.8em;
+    border-radius: 4px;
+    text-align: left;
+    font-size: 0.65em;
+    margin: 0.6em 0;
+    color: var(--text-body);
+  }
+
+  .reveal .two-col { display: flex; gap: 2em; text-align: left; flex-wrap: nowrap; }
+  .reveal .two-col > div { flex: 1; min-width: 0; }
+  .reveal .three-col { display: flex; gap: 1.5em; text-align: left; flex-wrap: nowrap; }
+  .reveal .three-col > div { flex: 1; min-width: 0; }
+
+  .reveal .analogy {
+    background: #fafafa;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--border);
+    padding: 0.35em 0.8em;
+    border-radius: 4px;
+    font-size: 0.62em;
+    text-align: left;
+    margin-top: 0.4em;
+    color: var(--text-body);
+    font-style: italic;
+  }
+
+  .reveal section { text-align: left; }
+  .reveal .center-text { text-align: center; }
+
+  .module-tag {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-size: 0.45em;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    vertical-align: middle;
+    margin-right: 0.4em;
+  }
+
+  .reveal .tip-card {
+    background: #fafafa;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.5em 0.8em;
+    font-size: 0.62em;
+    margin: 0.4em 0;
+    color: var(--text-body);
+  }
+
+  .reveal table { border-collapse: collapse; }
+  .reveal table th {
+    font-size: 0.55em;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+    padding: 0.4em 0.6em;
+    text-align: left;
+  }
+  .reveal table td {
+    font-size: 0.58em;
+    border-bottom: 1px solid var(--border);
+    padding: 0.4em 0.6em;
+    color: var(--text-body);
+  }
+
+  .reveal .slide-number { color: var(--muted); font-family: var(--font-body); font-size: 12px; }
+  .reveal .progress { color: var(--accent); height: 3px; }
+
+  .reveal .section-intro {
+    border-top: 1px solid var(--border);
+    padding-top: 1.5em;
+  }
+
+  /* Flow diagram */
+  .flow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 1em 0;
+    flex-wrap: nowrap;
+  }
+  .flow-step {
+    padding: 0.35em 0.7em;
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 0.6em;
+    font-weight: 500;
+    color: var(--text-body);
+  }
+  .flow-step.active {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .flow-arrow {
+    color: var(--accent);
+    font-size: 1em;
+    opacity: 0.5;
+  }
+
+  /* Prompt example blocks */
+  .prompt-example {
+    background: #fafafa;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.4em 0.8em;
+    font-size: 0.6em;
+    margin: 0.3em 0;
+    color: var(--text-body);
+  }
+  .prompt-example .label {
+    font-size: 0.7em;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.2em;
+  }
+  .prompt-example .good { color: #5c9a6b; }
+  .prompt-example .bad { color: #c4574b; }
+</style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- ============================================================ -->
+<!-- TITLE -->
+<!-- ============================================================ -->
+<section class="center-text">
+  <h3>Telescope Partners</h3>
+  <h1>Claude Code<br>for <em>Marketers</em></h1>
+  <p class="subtitle">From zero to building &mdash; no coding experience required</p>
+</section>
+
+<!-- ============================================================ -->
+<!-- WHAT IS CLAUDE CODE -->
+<!-- ============================================================ -->
+<section>
+  <h3>The Big Idea</h3>
+  <h2>What is Claude Code?</h2>
+  <p>An AI assistant that lives inside your code editor. You describe what you want in plain English &mdash; it does the work.</p>
+  <br>
+  <div class="two-col">
+    <div>
+      <div class="tip-card">
+        <strong>It's not just for coding.</strong><br>
+        Claude Code can research, write, analyze data, manage files, automate workflows, and build things &mdash; all from the same place.
+      </div>
+    </div>
+    <div>
+      <div class="tip-card">
+        <strong>It's not ChatGPT.</strong><br>
+        Claude Code doesn't just answer questions. It reads your files, creates new ones, runs commands, and builds real things on your computer.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- THE MENTAL MODEL -->
+<!-- ============================================================ -->
+<section>
+  <h3>The Key Reframe</h3>
+  <h2>You're not learning to code</h2>
+  <p>You're learning to <strong>direct an AI that does the work for you</strong>.</p>
+  <br>
+  <div class="two-col">
+    <div>
+      <strong>Your job:</strong>
+      <ul>
+        <li>Know what you want</li>
+        <li>Describe it clearly</li>
+        <li>Review the output</li>
+        <li>Give feedback</li>
+      </ul>
+    </div>
+    <div>
+      <strong>Claude Code's job:</strong>
+      <ul>
+        <li>Write the code</li>
+        <li>Create and edit files</li>
+        <li>Run commands</li>
+        <li>Fix its own mistakes</li>
+      </ul>
+    </div>
+  </div>
+  <div class="analogy">Think of it like managing a very fast, very literal junior team member. You provide direction. They do the execution.</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- WHY SHOULD MARKETERS CARE -->
+<!-- ============================================================ -->
+<section>
+  <h3>Why This Matters</h3>
+  <h2>What can a marketer actually do with this?</h2>
+  <div class="three-col">
+    <div>
+      <strong>Build things</strong>
+      <ul>
+        <li>Landing pages</li>
+        <li>Campaign microsites</li>
+        <li>ROI calculators</li>
+        <li>Internal tools</li>
+        <li>Interactive presentations</li>
+      </ul>
+    </div>
+    <div>
+      <strong>Research &amp; analyze</strong>
+      <ul>
+        <li>Competitive analysis</li>
+        <li>SEO audits</li>
+        <li>Data cleanup &amp; formatting</li>
+        <li>Pipeline modeling</li>
+        <li>Survey analysis</li>
+      </ul>
+    </div>
+    <div>
+      <strong>Write &amp; automate</strong>
+      <ul>
+        <li>Bulk content generation</li>
+        <li>Email sequences</li>
+        <li>Meeting note summaries</li>
+        <li>Report generation</li>
+        <li>File organization</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- AGENDA -->
+<!-- ============================================================ -->
+<section>
+  <h3>Agenda</h3>
+  <h2>What we'll cover today</h2>
+  <ol>
+    <li><strong>Getting Set Up</strong> &mdash; VS Code + Claude Code in 5 minutes</li>
+    <li><strong>Your New Workspace</strong> &mdash; Navigating VS Code &amp; the terminal</li>
+    <li><strong>The Workflow</strong> &mdash; How to talk to Claude Code and iterate</li>
+    <li><strong>Skills</strong> &mdash; Saved workflows you can reuse with one command</li>
+    <li><strong>Context OS</strong> &mdash; A knowledge system that compounds over time</li>
+    <li><strong>GitHub 101</strong> &mdash; Saving, sharing &amp; version control</li>
+    <li><strong>Key Concepts</strong> &mdash; Permissions, CLAUDE.md &amp; web basics</li>
+    <li><strong>Working Together</strong> &mdash; GitHub as your team's shared workspace</li>
+    <li><strong>Recovery</strong> &mdash; When things go wrong &amp; how to fix them</li>
+  </ol>
+</section>
+
+<!-- ============================================================ -->
+<!-- MODULE 1: GETTING SET UP -->
+<!-- ============================================================ -->
+<section class="section-intro">
+  <h3><span class="module-tag">Module 01</span></h3>
+  <h2>Getting Set Up</h2>
+  <p class="subtitle">Zero &rarr; first prompt</p>
+</section>
+
+<section>
+  <h3>Step 1: Get VS Code</h3>
+  <ul>
+    <li><strong>What is it?</strong> A free app that gives Claude Code a home to work in</li>
+    <li>Download from <strong>code.visualstudio.com</strong></li>
+    <li>Install like any other app</li>
+    <li>Open it up</li>
+  </ul>
+  <div class="highlight">✅ <strong>Checkpoint:</strong> You should see a Welcome tab</div>
+</section>
+
+<section>
+  <h3>Step 2: Add Claude Code</h3>
+  <ul>
+    <li>Open the <strong>Extensions sidebar</strong> (puzzle piece icon)</li>
+    <li>Search <strong>"Claude Code"</strong></li>
+    <li>Click <strong>Install</strong></li>
+    <li>Sign in when prompted</li>
+  </ul>
+  <div class="highlight">✅ <strong>Checkpoint:</strong> You see the Claude Code icon in your sidebar</div>
+</section>
+
+<section>
+  <h3>Step 3: Your First Prompt</h3>
+  <ul>
+    <li>Open the Claude Code panel</li>
+    <li>Type something like:</li>
+  </ul>
+  <div class="highlight" style="font-style: italic;">"Write me 3 subject lines for a spring sale email"</div>
+  <ul>
+    <li>Watch the response appear</li>
+  </ul>
+  <div class="highlight">✅ <strong>Checkpoint:</strong> You just used Claude Code for the first time!</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- MODULE 2: YOUR NEW WORKSPACE -->
+<!-- ============================================================ -->
+<section class="section-intro">
+  <h3><span class="module-tag">Module 02</span></h3>
+  <h2>Your New Workspace</h2>
+  <p class="subtitle">VS Code, the terminal &amp; files</p>
+</section>
+
+<section>
+  <h3>What Is VS Code?</h3>
+  <div class="analogy">Think of it like Microsoft Word, but for projects instead of documents.</div>
+  <br>
+  <ul>
+    <li>Free, made by Microsoft</li>
+    <li>VS Code ≠ Visual Studio (different product!)</li>
+    <li>The place where you and Claude Code work together</li>
+  </ul>
+</section>
+
+<section>
+  <h3>The 4 Areas That Matter</h3>
+  <div class="two-col">
+    <div>
+      <ol>
+        <li><strong>Sidebar</strong> &mdash; your file explorer</li>
+        <li><strong>Editor</strong> &mdash; where files open</li>
+        <li><strong>Terminal</strong> &mdash; where Claude Code runs</li>
+        <li><strong>Command Palette</strong> &mdash; search for anything</li>
+      </ol>
+    </div>
+    <div>
+      <div class="tip-card">
+        You can toggle these panels open and closed. Don't worry about anything else for now.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h3>Files, Folders &amp; Projects</h3>
+  <ul>
+    <li>Same as your computer's file system &mdash; nothing new</li>
+    <li><strong>"Opening a folder"</strong> = opening a project</li>
+    <li>Common file types: <code>.html</code> <code>.css</code> <code>.js</code> <code>.md</code> <code>.json</code></li>
+  </ul>
+  <div class="analogy">⚠️ <strong>#1 beginner mistake:</strong> opening a single file instead of the whole project folder</div>
+</section>
+
+<section>
+  <h3>The Terminal (Don't Panic)</h3>
+  <ul>
+    <li><strong>What it is:</strong> a text conversation with your computer</li>
+    <li>Claude Code uses it &mdash; you don't need to learn commands</li>
+    <li>When you see <code>$</code> or <code>%</code> it means "ready for input"</li>
+  </ul>
+  <div class="highlight">The one thing to memorize: <code>Ctrl+C</code> (or <code>Cmd+C</code>) to cancel/stop anything</div>
+</section>
+
+<section>
+  <h3>Quick Setup Tips</h3>
+  <div class="two-col">
+    <div>
+      <strong>Extensions to install:</strong>
+      <ul>
+        <li>Prettier (auto-formatting)</li>
+        <li>Live Server (preview sites)</li>
+        <li>GitLens (see Git history)</li>
+      </ul>
+    </div>
+    <div>
+      <strong>Settings to change:</strong>
+      <ul>
+        <li>Auto Save (critical for Claude Code!)</li>
+        <li>Font size to your preference</li>
+        <li>Pick a theme you like</li>
+        <li>Turn on Word Wrap</li>
+      </ul>
+    </div>
+  </div>
+  <div class="analogy">Auto Save matters because Claude Code reads files from disk &mdash; if you forget to save, it reads stale content.</div>
+</section>
+
+<section>
+  <h3>Key Shortcuts</h3>
+  <table style="width: 100%;">
+    <tr><th>Action</th><th>Mac</th><th>Windows</th></tr>
+    <tr><td>Command Palette</td><td><code>⌘ Shift P</code></td><td><code>Ctrl Shift P</code></td></tr>
+    <tr><td>Quick Open file</td><td><code>⌘ P</code></td><td><code>Ctrl P</code></td></tr>
+    <tr><td>Toggle Terminal</td><td><code>⌘ `</code></td><td><code>Ctrl `</code></td></tr>
+    <tr><td>Toggle Sidebar</td><td><code>⌘ B</code></td><td><code>Ctrl B</code></td></tr>
+    <tr><td>Find in file</td><td><code>⌘ F</code></td><td><code>Ctrl F</code></td></tr>
+    <tr><td>Find in all files</td><td><code>⌘ Shift F</code></td><td><code>Ctrl Shift F</code></td></tr>
+    <tr><td>Undo</td><td><code>⌘ Z</code></td><td><code>Ctrl Z</code></td></tr>
+  </table>
+  <p class="small">Start with Command Palette and Toggle Terminal. Add others as you go.</p>
+</section>
+
+<!-- ============================================================ -->
+<!-- MODULE 3: THE WORKFLOW (NEW) -->
+<!-- ============================================================ -->
+<section class="section-intro">
+  <h3><span class="module-tag">Module 03</span></h3>
+  <h2>The Workflow</h2>
+  <p class="subtitle">How to talk to Claude Code and get results</p>
+</section>
+
+<section>
+  <h3>The Core Loop</h3>
+  <h2>Describe &rarr; Review &rarr; Refine</h2>
+  <div class="flow">
+    <div class="flow-step active">You describe what you want</div>
+    <span class="flow-arrow">&rarr;</span>
+    <div class="flow-step">Claude Code does the work</div>
+    <span class="flow-arrow">&rarr;</span>
+    <div class="flow-step">You review the output</div>
+    <span class="flow-arrow">&rarr;</span>
+    <div class="flow-step active">You give feedback</div>
+    <span class="flow-arrow">&rarr;</span>
+    <div class="flow-step">Repeat</div>
+  </div>
+  <div class="analogy">This is the entire skill. You don't need to understand what Claude Code does in between &mdash; you need to get good at describing and giving feedback.</div>
+</section>
+
+<section>
+  <h3>Prompting Basics</h3>
+  <h2>How to give good instructions</h2>
+  <div class="two-col">
+    <div>
+      <div class="prompt-example">
+        <div class="label bad">Vague</div>
+        "Make me a landing page"
+      </div>
+      <div class="prompt-example">
+        <div class="label bad">Vague</div>
+        "Analyze this data"
+      </div>
+      <div class="prompt-example">
+        <div class="label bad">Vague</div>
+        "Help me with emails"
+      </div>
+    </div>
+    <div>
+      <div class="prompt-example">
+        <div class="label good">Specific</div>
+        "Create a landing page for our spring webinar. Headline: 'Master ABM in 30 Days.' Include a signup form and 3 speaker bios."
+      </div>
+      <div class="prompt-example">
+        <div class="label good">Specific</div>
+        "Read the CSV in /data/leads.csv and tell me how many leads came from each source last quarter."
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h3>Prompting Tips</h3>
+  <h2>The cheat sheet</h2>
+  <ul>
+    <li><strong>Be specific</strong> &mdash; include names, numbers, details, goals</li>
+    <li><strong>Give context</strong> &mdash; "This is for a B2B SaaS audience" or "We're a Series A startup"</li>
+    <li><strong>Reference files</strong> &mdash; "Look at the homepage in index.html" or "Use the data in report.csv"</li>
+    <li><strong>State the format</strong> &mdash; "Give me a markdown table" or "Create an HTML page" or "Save it as a CSV"</li>
+    <li><strong>Iterate, don't start over</strong> &mdash; "Make the headline bigger" beats re-explaining everything</li>
+  </ul>
+  <div class="highlight">You'll get better at this fast. The first prompt doesn't need to be perfect &mdash; that's what the loop is for.</div>
+</section>
+
+<section>
+  <h3>The Iteration Loop</h3>
+  <h2>Refining is the real skill</h2>
+  <p>Your first result won't be perfect. That's expected. Here's how to refine:</p>
+  <br>
+  <div class="prompt-example">
+    <div class="label">Round 1</div>
+    "Create a one-page summary of our Q1 marketing metrics from the spreadsheet in /data/"
+  </div>
+  <div class="prompt-example">
+    <div class="label">Round 2</div>
+    "Add a chart comparing MQLs by channel. Make the table sortable."
+  </div>
+  <div class="prompt-example">
+    <div class="label">Round 3</div>
+    "Change the color scheme to match our brand (navy #1B2A4A and teal #559AB3). Add our logo."
+  </div>
+  <div class="analogy">Each round builds on the last. You're not starting over &mdash; you're steering.</div>
+</section>
+
+<section>
+  <h3>Seeing Your Work</h3>
+  <h2>How do I actually look at what Claude built?</h2>
+  <p>Depends on what you asked for:</p>
+  <br>
+  <table style="width: 100%;">
+    <tr><th>You asked for...</th><th>How to see it</th></tr>
+    <tr><td>A webpage or HTML file</td><td>Right-click the file &rarr; <strong>Open with Live Server</strong> (opens in your browser)</td></tr>
+    <tr><td>A text file, CSV, or markdown</td><td>It opens right in VS Code &mdash; click the file in the sidebar</td></tr>
+    <tr><td>A summary or analysis</td><td>Claude Code shows the answer directly in the chat panel</td></tr>
+    <tr><td>Changes to an existing file</td><td>The file updates automatically &mdash; check the editor tab</td></tr>
+  </table>
+  <div class="highlight">If you installed <strong>Live Server</strong>, previewing websites is one right-click away.</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- MODULE 4: SKILLS -->
+<!-- ============================================================ -->
+<section class="section-intro">
+  <h3><span class="module-tag">Module 04</span></h3>
+  <h2>Skills</h2>
+  <p class="subtitle">Saved workflows you can reuse with one command</p>
+</section>
+
+<section>
+  <h3>What Are Skills?</h3>
+  <h2>Slash commands for Claude Code</h2>
+  <p>A skill is a set of instructions saved as a file. When you type <code>/skill-name</code>, Claude Code loads those instructions and follows them &mdash; like giving it a playbook.</p>
+  <br>
+  <div class="two-col">
+    <div>
+      <strong>Without a skill:</strong>
+      <div class="prompt-example">
+        "Go to this company's website, pull their messaging, pricing, positioning, key features, and target audience into a structured competitive analysis doc using the format we used last time..."
+      </div>
+    </div>
+    <div>
+      <strong>With a skill:</strong>
+      <div class="prompt-example" style="border-color: var(--accent);">
+        <code>/competitive-analysis</code> https://competitor.com
+      </div>
+      <br>
+      <div class="analogy">Same result. One line instead of a paragraph. Repeatable by anyone on your team.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h3>Why Skills Matter</h3>
+  <h2>Compound your best prompts</h2>
+  <ul>
+    <li><strong>Consistency</strong> &mdash; same quality output every time, not dependent on how well you prompt that day</li>
+    <li><strong>Speed</strong> &mdash; complex multi-step workflows triggered with one command</li>
+    <li><strong>Shareability</strong> &mdash; anyone on your team can use the skill without writing the prompt themselves</li>
+    <li><strong>Iteration</strong> &mdash; improve the skill once, everyone benefits</li>
+  </ul>
+  <div class="analogy">Think of skills like email templates &mdash; you write the perfect version once, then reuse and adapt it.</div>
+</section>
+
+<section>
+  <h3>Examples for Marketers</h3>
+  <h2>Skills you might build</h2>
+  <div class="three-col">
+    <div>
+      <strong>Research</strong>
+      <ul>
+        <li><code>/competitive-analysis</code></li>
+        <li><code>/seo-audit</code></li>
+        <li><code>/persona-builder</code></li>
+        <li><code>/content-strategy-audit</code></li>
+      </ul>
+    </div>
+    <div>
+      <strong>Content</strong>
+      <ul>
+        <li><code>/blog-post</code></li>
+        <li><code>/email-sequence</code></li>
+        <li><code>/social-posts</code></li>
+        <li><code>/case-study</code></li>
+      </ul>
+    </div>
+    <div>
+      <strong>Operations</strong>
+      <ul>
+        <li><code>/meeting-notes</code></li>
+        <li><code>/quarterly-report</code></li>
+        <li><code>/data-cleanup</code></li>
+        <li><code>/campaign-brief</code></li>
+      </ul>
+    </div>
+  </div>
+  <div class="highlight">You don't need to build these from scratch. Many already exist. Others are simple text files you can write yourself.</div>
+</section>
+
+<section>
+  <h3>How Skills Work</h3>
+  <h2>It's just a text file</h2>
+  <p>A skill is a markdown file (<code>.md</code>) saved in a specific folder. It contains instructions that Claude Code follows when you invoke it.</p>
+  <br>
+  <div class="two-col">
+    <div>
+      <strong>Where they live:</strong>
+      <ul>
+        <li><strong>Project skills</strong> &mdash; in your project's <code>.claude/</code> folder (shared with the team)</li>
+        <li><strong>Personal skills</strong> &mdash; in your home <code>~/.claude/</code> folder (just for you)</li>
+        <li><strong>Installable skills</strong> &mdash; downloaded from others, added in one step</li>
+      </ul>
+    </div>
+    <div>
+      <div class="tip-card">
+        <strong>The key insight:</strong><br>
+        If you can write a good prompt, you can write a skill. It's the same thing &mdash; just saved to a file so you don't have to type it again.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- MODULE 5: CONTEXT OS -->
+<!-- ============================================================ -->
+<section class="section-intro">
+  <h3><span class="module-tag">Module 05</span></h3>
+  <h2>Context OS</h2>
+  <p class="subtitle">A knowledge system where AI never forgets what you've taught it</p>
+</section>
+
+<section>
+  <h3>The Problem</h3>
+  <h2>Every AI session starts from scratch</h2>
+  <ul>
+    <li>You re-explain your business every time</li>
+    <li>You re-teach your preferences, your ICP, your voice</li>
+    <li>You re-provide the same context over and over</li>
+    <li>Knowledge doesn't compound &mdash; it resets</li>
+  </ul>
+  <div class="analogy">Imagine onboarding a new employee every single morning. That's what using AI without a context system feels like.</div>
+</section>
+
+<section>
+  <h3>The Solution</h3>
+  <h2>A Context OS structures your knowledge so AI compounds it</h2>
+  <p>Instead of scattered docs and repeated explanations, you build a structured knowledge base that Claude Code reads automatically every session.</p>
+  <br>
+  <div class="two-col">
+    <div>
+      <strong>Without Context OS:</strong>
+      <ul>
+        <li>Copy-paste context into every chat</li>
+        <li>Inconsistent outputs each time</li>
+        <li>Knowledge lives in your head</li>
+        <li>New team members start from zero</li>
+      </ul>
+    </div>
+    <div>
+      <strong>With Context OS:</strong>
+      <ul>
+        <li>AI reads your knowledge base automatically</li>
+        <li>Consistent, compounding outputs</li>
+        <li>Knowledge is captured and reusable</li>
+        <li>New team members onboard instantly</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h3>How It Works</h3>
+  <h2>Two layers of knowledge</h2>
+  <div class="two-col">
+    <div>
+      <strong>Layer 1: Atomic Knowledge</strong>
+      <p>Individual reusable concepts &mdash; your ICP, your positioning, your frameworks, product facts.</p>
+      <ul>
+        <li>Each concept is its own file</li>
+        <li>Tagged and linked to related concepts</li>
+        <li>Lifecycle: emergent &rarr; validated &rarr; canonical</li>
+      </ul>
+    </div>
+    <div>
+      <strong>Layer 2: Operational Docs</strong>
+      <p>Strategic documents that compose Layer 1 concepts &mdash; positioning docs, messaging guides, process playbooks.</p>
+      <ul>
+        <li>Reference atomic concepts, don't redefine them</li>
+        <li>Synthesis docs summarize entire domains</li>
+        <li>Update once, everything downstream benefits</li>
+      </ul>
+    </div>
+  </div>
+  <div class="analogy">Layer 1 = individual Lego bricks. Layer 2 = the things you build with them. Change a brick and every build that uses it improves.</div>
+</section>
+
+<section>
+  <h3>What Marketers Use It For</h3>
+  <h2>Real use cases</h2>
+  <div class="three-col">
+    <div>
+      <strong>GTM &amp; Sales</strong>
+      <ul>
+        <li>ICP profiles that persist</li>
+        <li>Competitive intel library</li>
+        <li>Objection handling patterns</li>
+        <li>Win/loss analysis</li>
+      </ul>
+    </div>
+    <div>
+      <strong>Content &amp; Messaging</strong>
+      <ul>
+        <li>Brand voice &amp; tone guides</li>
+        <li>Value prop frameworks</li>
+        <li>Positioning documents</li>
+        <li>Messaging by persona</li>
+      </ul>
+    </div>
+    <div>
+      <strong>Operations</strong>
+      <ul>
+        <li>Call transcript processing</li>
+        <li>Meeting notes &rarr; knowledge</li>
+        <li>Onboarding new team members</li>
+        <li>Cross-team context sharing</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h3>Getting Started</h3>
+  <h2>10 minutes to your first Context OS</h2>
+  <div class="flow">
+    <div class="flow-step">Clone the quickstart repo</div>
+    <span class="flow-arrow">&rarr;</span>
+    <div class="flow-step">Run <code>/quickstart</code></div>
+    <span class="flow-arrow">&rarr;</span>
+    <div class="flow-step">Answer a few questions</div>
+    <span class="flow-arrow">&rarr;</span>
+    <div class="flow-step active">Working Context OS</div>
+  </div>
+  <br>
+  <p>The quickstart creates your directory structure, CLAUDE.md navigation guide, taxonomy &amp; ontology rules, and processes your first piece of content.</p>
+  <br>
+  <div class="two-col">
+    <div>
+      <strong>Built-in commands:</strong>
+      <ul>
+        <li><code>/quickstart</code> &mdash; guided 10-min setup</li>
+        <li><code>/ingest</code> &mdash; process content into knowledge</li>
+        <li><code>/graph-health</code> &mdash; check system health</li>
+      </ul>
+    </div>
+    <div>
+      <div class="tip-card">
+        <strong>The key files:</strong><br>
+        <code>CLAUDE.md</code> &mdash; navigation guide (AI reads this first)<br>
+        <code>taxonomy.yaml</code> &mdash; your blessed tags<br>
+        <code>ontology.yaml</code> &mdash; how concepts relate
+      </div>
+    </div>
+  </div>
+  <div class="highlight">Repo: <strong>github.com/jacob-dietle/gtm-context-os-quickstart</strong> &mdash; built by Jacob Dietle</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- MODULE 6: GITHUB 101 -->
+<!-- ============================================================ -->
+<section class="section-intro">
+  <h3><span class="module-tag">Module 06</span></h3>
+  <h2>GitHub 101</h2>
+  <p class="subtitle">Saving, sharing &amp; not losing your work</p>
+</section>
+
+<section>
+  <h3>Git vs. GitHub</h3>
+  <div class="two-col">
+    <div>
+      <strong>Git</strong>
+      <ul>
+        <li>Software on your computer</li>
+        <li>Tracks every change you make</li>
+      </ul>
+      <div class="analogy">Like "Track Changes" in Word</div>
+    </div>
+    <div>
+      <strong>GitHub</strong>
+      <ul>
+        <li>Website that hosts your projects</li>
+        <li>Where you back up and collaborate</li>
+      </ul>
+      <div class="analogy">Like Google Drive for code</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h3>Why Version Control?</h3>
+  <ul>
+    <li>No more <code>final_v2_FINAL.docx</code></li>
+    <li>Every change tracked &mdash; who, what, when</li>
+    <li>You can always go back</li>
+    <li>Multiple people can work without overwriting each other</li>
+  </ul>
+</section>
+
+<section>
+  <h3>The Core Concepts</h3>
+  <table style="width: 100%;">
+    <tr><td><strong>Repository (repo)</strong></td><td>A project tracked by Git</td></tr>
+    <tr><td><strong>Commit</strong></td><td>A labeled save point with a description</td></tr>
+    <tr><td><strong>Branch</strong></td><td>A parallel draft of your project</td></tr>
+    <tr><td><strong>Merge</strong></td><td>Combining a branch back into the main version</td></tr>
+    <tr><td><strong>Push / Pull</strong></td><td>Upload to / download from GitHub</td></tr>
+    <tr><td><strong>Clone</strong></td><td>Download a project from GitHub for the first time</td></tr>
+    <tr><td><strong>Pull Request (PR)</strong></td><td>A proposal to merge changes, with review</td></tr>
+  </table>
+  <div class="analogy">A <strong>branch</strong> is like photocopying a document to try edits &mdash; if you like them, you merge the photocopy back in.</div>
+</section>
+
+<section>
+  <h3>When Would a Marketer Use This?</h3>
+  <ul>
+    <li>Collaborating on website changes</li>
+    <li>Tracking content revisions</li>
+    <li>Reviewing and approving changes via PRs</li>
+    <li>Working with developers on the company site</li>
+    <li>Building a personal/team site via GitHub Pages</li>
+  </ul>
+  <div class="highlight">Claude Code handles the Git commands &mdash; you need the <strong>concepts</strong> to give good instructions.</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- MODULE 7: KEY CONCEPTS -->
+<!-- ============================================================ -->
+<section class="section-intro">
+  <h3><span class="module-tag">Module 07</span></h3>
+  <h2>Key Concepts</h2>
+  <p class="subtitle">Permissions, CLAUDE.md &amp; web basics</p>
+</section>
+
+<section>
+  <h3>The Permission System</h3>
+  <ul>
+    <li>Claude Code <strong>asks before it acts</strong> (edits files, runs commands)</li>
+    <li>Saying "no" is always safe</li>
+    <li>Almost everything is reversible (especially with Git)</li>
+    <li>You can pre-approve safe actions to skip future prompts</li>
+  </ul>
+  <div class="analogy">It's a safety feature, not an annoyance. Think of it as a colleague confirming before making changes.</div>
+</section>
+
+<section>
+  <h3>Your Most Powerful Tool</h3>
+  <h2>The CLAUDE.md file</h2>
+  <ul>
+    <li><strong>What:</strong> A briefing document that lives in your project folder</li>
+    <li><strong>Why:</strong> The single most impactful thing you can write</li>
+    <li><strong>What goes in it:</strong> project description, goals, preferences, things to avoid</li>
+  </ul>
+  <div class="highlight">It's just a text file &mdash; you already know how to write one. Think of it as onboarding a new team member every time a conversation starts.</div>
+</section>
+
+<section>
+  <h3>HTML, CSS &amp; JavaScript</h3>
+  <p>You don't need to write these &mdash; just know what they do:</p>
+  <div class="two-col">
+    <div>
+      <ul>
+        <li><strong>HTML</strong> = structure (the skeleton)</li>
+        <li><strong>CSS</strong> = styling (the clothing)</li>
+        <li><strong>JavaScript</strong> = behavior (the muscles)</li>
+      </ul>
+    </div>
+    <div>
+      <div class="tip-card">
+        Knowing this helps you give better prompts:<br><br>
+        "Change the font" &rarr; CSS<br>
+        "Add a new section" &rarr; HTML<br>
+        "Make this button do something" &rarr; JS
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h3>Three Environments</h3>
+  <h2>Local vs. Remote vs. Live</h2>
+  <table style="width: 100%;">
+    <tr><td><strong>Local</strong></td><td>Files on your computer</td><td>Where you + Claude Code work</td></tr>
+    <tr><td><strong>Remote</strong></td><td>Files on GitHub</td><td>Where you back up &amp; collaborate</td></tr>
+    <tr><td><strong>Deployed</strong></td><td>A live website</td><td>A separate step entirely</td></tr>
+  </table>
+  <div class="analogy">Changing one doesn't automatically change the others. Think of them as three different copies.</div>
+</section>
+
+<section>
+  <h3>Packages &amp; Dependencies</h3>
+  <ul>
+    <li>Modern projects use pre-built code (packages/libraries)</li>
+    <li>When Claude Code runs <code>npm install</code>, it's downloading these</li>
+    <li><code>node_modules</code> = thousands of files &mdash; this is normal</li>
+    <li><code>package.json</code> = the recipe; <code>node_modules</code> = the ingredients</li>
+  </ul>
+  <div class="highlight">Never edit <code>node_modules</code> directly</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- MODULE 8: WORKING TOGETHER — GITHUB AS SHARED WORKSPACE -->
+<!-- ============================================================ -->
+<section class="section-intro">
+  <h3><span class="module-tag">Module 08</span></h3>
+  <h2>Working Together</h2>
+  <p class="subtitle">GitHub as your team's shared workspace</p>
+</section>
+
+<section>
+  <h3>Why You Need This</h3>
+  <h2>Your work lives in files now</h2>
+  <p>Landing pages, reports, Context OS docs, analysis &mdash; Claude Code creates real files. Without a system, you'll overwrite each other's changes and lose work.</p>
+  <br>
+  <div class="two-col">
+    <div>
+      <strong>Without GitHub:</strong>
+      <ul>
+        <li>"Which version is the latest?"</li>
+        <li>"Did you change this file too?"</li>
+        <li>"I think I lost my work"</li>
+      </ul>
+    </div>
+    <div>
+      <strong>With GitHub:</strong>
+      <ul>
+        <li>Every change tracked &amp; labeled</li>
+        <li>Everyone works in parallel</li>
+        <li>Nothing is ever lost</li>
+      </ul>
+    </div>
+  </div>
+  <div class="analogy">Git is the "track changes" system. GitHub is the shared drive. Claude Code is the person clicking the buttons for you.</div>
+</section>
+
+<section>
+  <h3>Saving Your Progress</h3>
+  <h2>Commits = labeled save points</h2>
+  <p>A <strong>commit</strong> is a snapshot of your project at a moment in time, with a short description of what changed.</p>
+  <br>
+  <div class="prompt-example">
+    <div class="label">What you tell Claude Code</div>
+    "Commit my changes with the message 'finished Q1 pipeline report'"
+  </div>
+  <br>
+  <ul>
+    <li>You can always go back to any previous commit &mdash; nothing is ever truly lost</li>
+    <li>Commit often &mdash; think of it like pressing save, but with a description</li>
+  </ul>
+  <div class="analogy">Like bookmarking a page in a notebook with a sticky note that says what's on that page.</div>
+</section>
+
+<section>
+  <h3>Working in Parallel</h3>
+  <h2>Branches = your own copy to work on</h2>
+  <p>A <strong>branch</strong> lets you make changes without affecting anyone else's work. The <strong>main branch</strong> is the source of truth.</p>
+  <br>
+  <div class="two-col">
+    <div>
+      <div class="tip-card">
+        <strong>Sarah</strong> is updating the messaging framework on her branch
+      </div>
+      <div class="tip-card">
+        <strong>Mike</strong> is building a new landing page on his branch
+      </div>
+      <div class="tip-card">
+        <strong>Alex</strong> is updating competitor profiles on his branch
+      </div>
+    </div>
+    <div>
+      <ul>
+        <li>Nobody blocks anyone else</li>
+        <li>Experiment freely &mdash; if it doesn't work, delete the branch</li>
+        <li>Merge back when you're done</li>
+      </ul>
+      <div class="prompt-example">
+        <div class="label">What you tell Claude Code</div>
+        "Create a new branch called 'q2-content-refresh'"
+      </div>
+    </div>
+  </div>
+  <div class="analogy">Like photocopying a document to try edits. If you like them, replace the original. If not, toss the photocopy.</div>
+</section>
+
+<section>
+  <h3>Sharing &amp; Syncing</h3>
+  <h2>Push, Pull &amp; Clone</h2>
+  <table style="width: 100%;">
+    <tr><td><strong>Push</strong></td><td>Upload your changes to GitHub</td><td>"Share my work with the team"</td></tr>
+    <tr><td><strong>Pull</strong></td><td>Download latest changes from GitHub</td><td>"Get my teammate's updates"</td></tr>
+    <tr><td><strong>Clone</strong></td><td>Download the project for the first time</td><td>"New team member getting set up"</td></tr>
+  </table>
+  <br>
+  <div class="flow">
+    <div class="flow-step">Pull latest</div>
+    <span class="flow-arrow">&rarr;</span>
+    <div class="flow-step active">Do your work</div>
+    <span class="flow-arrow">&rarr;</span>
+    <div class="flow-step">Commit</div>
+    <span class="flow-arrow">&rarr;</span>
+    <div class="flow-step">Push</div>
+  </div>
+  <div class="highlight">If you forget to pull and someone changed the same file, Git flags a <strong>conflict</strong>. Claude Code can help you resolve it.</div>
+</section>
+
+<section>
+  <h3>Reviewing Each Other's Work</h3>
+  <h2>Pull Requests = "review before we merge"</h2>
+  <p>A <strong>Pull Request (PR)</strong> is a proposal: "I made changes on my branch &mdash; can someone review before it becomes official?"</p>
+  <br>
+  <ul>
+    <li>Review a new competitor analysis before it enters the knowledge base</li>
+    <li>Check messaging updates before they go into the Context OS</li>
+    <li>Approve a landing page before it goes live</li>
+    <li>Comment, request changes, or approve &mdash; just like reviewing a Google Doc</li>
+  </ul>
+  <div class="prompt-example">
+    <div class="label">What you tell Claude Code</div>
+    "Create a pull request with the title 'Updated ICP profiles for Q2'"
+  </div>
+</section>
+
+<section>
+  <h3>Real Example</h3>
+  <h2>A marketing team's weekly workflow</h2>
+  <table style="width: 100%;">
+    <tr><th>Day</th><th>Who</th><th>What happens</th></tr>
+    <tr><td>Mon</td><td>Sarah</td><td>Pulls latest, branches, adds Q2 content calendar, opens PR</td></tr>
+    <tr><td>Tue</td><td>Mike</td><td>Reviews Sarah's PR, comments, approves &mdash; Sarah merges</td></tr>
+    <tr><td>Wed</td><td>Alex</td><td>Pulls latest (now includes Sarah's work), branches, updates competitor profiles, opens PR</td></tr>
+  </table>
+  <br>
+  <div class="highlight">Nobody typed a single Git command. Claude Code did it all from plain English instructions.</div>
+</section>
+
+<section>
+  <h3>Quick Reference</h3>
+  <h2>What to tell Claude Code</h2>
+  <table style="width: 100%;">
+    <tr><th>You want to...</th><th>Say this</th></tr>
+    <tr><td>Save your work</td><td>"Commit my changes with the message '[description]'"</td></tr>
+    <tr><td>Start something new safely</td><td>"Create a new branch called '[name]'"</td></tr>
+    <tr><td>Share with the team</td><td>"Push my changes and create a pull request"</td></tr>
+    <tr><td>Get teammates' latest work</td><td>"Pull the latest changes from main"</td></tr>
+    <tr><td>Undo a mistake</td><td>"Revert to the last commit"</td></tr>
+    <tr><td>Fix a file conflict</td><td>"Help me resolve this merge conflict"</td></tr>
+  </table>
+</section>
+
+<section>
+  <h3>Things to Know</h3>
+  <ul>
+    <li><strong>Don't put secrets in the repo</strong> &mdash; API keys and <code>.env</code> files belong in <code>.gitignore</code></li>
+    <li><strong>Commit messages matter</strong> &mdash; "updated stuff" is useless in 3 months. "Added Q1 pipeline model with channel breakdowns" is useful forever.</li>
+    <li><strong>Pull before you push</strong> &mdash; avoids most conflicts</li>
+    <li><strong>The main branch is sacred</strong> &mdash; always work on a branch and merge via PR</li>
+  </ul>
+  <div class="analogy">You can now save, share, collaborate, and recover &mdash; all through Claude Code in plain English.</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- MODULE 9: WHEN THINGS GO WRONG -->
+<!-- ============================================================ -->
+<section class="section-intro">
+  <h3><span class="module-tag">Module 09</span></h3>
+  <h2>When Things Go Wrong</h2>
+  <p class="subtitle">Recovery, confidence &amp; common fears</p>
+</section>
+
+<section>
+  <h3>Let's Address the Fear</h3>
+  <h2>"I see code and I'm scared"</h2>
+  <ul>
+    <li>You don't need to <strong>read</strong> the code &mdash; you review the <strong>output</strong></li>
+    <li>If Claude Code built a page, look at the page, not the code behind it</li>
+    <li>If Claude Code wrote a summary, read the summary</li>
+    <li>The code is Claude's problem. The result is yours.</li>
+  </ul>
+  <div class="analogy">You don't need to understand how a car engine works to know whether it drove you to the right place.</div>
+</section>
+
+<section>
+  <h3>Your Safety Net</h3>
+  <h2>Practical recovery options</h2>
+  <table style="width: 100%;">
+    <tr><th>What happened</th><th>What to do</th></tr>
+    <tr><td>Claude Code did something you didn't want</td><td><code>Cmd+Z</code> / <code>Ctrl+Z</code> to undo in the file</td></tr>
+    <tr><td>A file looks completely wrong</td><td>Tell Claude Code: "Undo your last change to [filename]"</td></tr>
+    <tr><td>Everything feels broken</td><td>Start a new Claude Code conversation &mdash; fresh context, fresh start</td></tr>
+    <tr><td>You want to go back to a known good state</td><td>If using Git: Claude Code can revert to any previous commit</td></tr>
+    <tr><td>Something is running and won't stop</td><td><code>Ctrl+C</code> in the terminal to cancel</td></tr>
+  </table>
+  <div class="highlight">Almost nothing is permanent. The whole system is designed to let you experiment safely.</div>
+</section>
+
+<section>
+  <h3>Common Beginner Moments</h3>
+  <h2>This is all normal</h2>
+  <ul>
+    <li><strong>"Claude Code is asking me to approve something I don't understand"</strong> &mdash; It's okay to say no. Ask Claude Code to explain what it wants to do first.</li>
+    <li><strong>"There are thousands of files I didn't create"</strong> &mdash; That's <code>node_modules</code>. Totally normal. Ignore them.</li>
+    <li><strong>"The terminal is showing a wall of text"</strong> &mdash; Claude Code is working. Let it finish. If stuck, <code>Ctrl+C</code>.</li>
+    <li><strong>"I don't know if it worked"</strong> &mdash; Ask Claude Code: "Did that work? Show me the result."</li>
+  </ul>
+</section>
+
+<!-- ============================================================ -->
+<!-- WRAP UP -->
+<!-- ============================================================ -->
+<section class="center-text">
+  <h3>Wrapping Up</h3>
+  <h2>Key Takeaways</h2>
+  <ol style="display: inline-block; text-align: left;">
+    <li>Claude Code does the work &mdash; you provide direction</li>
+    <li>It's not just for coding: research, writing, data, automation</li>
+    <li>The core skill is <strong>describe &rarr; review &rarr; refine</strong></li>
+    <li>CLAUDE.md is your most powerful tool</li>
+    <li>Everything is reversible &mdash; experiment freely</li>
+  </ol>
+</section>
+
+<section class="center-text">
+  <h3>Telescope Partners</h3>
+  <h2>Questions?</h2>
+</section>
+
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script>
+Reveal.initialize({
+  hash: true,
+  slideNumber: true,
+  transition: 'fade',
+  width: 1200,
+  height: 700,
+  margin: 0.12,
+  minScale: 0.2,
+  maxScale: 1.5,
+});
+</script>
+</body>
+</html>
